@@ -5,7 +5,7 @@ import org.thecuriousdev.demo.skeleton.db.domain.Person;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public final class SimulatedDatabase {
+public class SimulatedDatabase {
 
     private static final Map<String, Person> PERSON_CACHE = new ConcurrentHashMap<>();
 

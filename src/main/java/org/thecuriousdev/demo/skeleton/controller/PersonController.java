@@ -12,11 +12,15 @@ import java.util.Optional;
 @RestController
 public class PersonController {
 
-    @Autowired
     private PersonRepository personRepository;
 
+    @Autowired
+    public PersonController(PersonRepository personRepository) {
+        this.personRepository = personRepository;
+    }
+
     @GetMapping("/person/{name}")
-    public ResponseEntity<Person> getUser(@PathVariable String name) {
+    public ResponseEntity<Person> getPerson(@PathVariable String name) {
         Optional<Person> person = personRepository.findById(name);
 
         if (person.isPresent()) {
@@ -27,13 +31,13 @@ public class PersonController {
     }
 
     @PostMapping("/person")
-    public ResponseEntity<HttpStatus> saveUser(@RequestBody Person person) {
+    public ResponseEntity<HttpStatus> savePerson(@RequestBody Person person) {
         personRepository.save(person);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/person/{name}")
-    public ResponseEntity<HttpStatus> deleteUser(@PathVariable String name) {
+    public ResponseEntity<HttpStatus> deletePerson(@PathVariable String name) {
         personRepository.delete(name);
         return ResponseEntity.noContent().build();
     }
