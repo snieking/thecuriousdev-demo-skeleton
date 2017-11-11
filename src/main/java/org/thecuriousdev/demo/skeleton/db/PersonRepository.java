@@ -18,12 +18,9 @@ public class PersonRepository {
 
     public Optional<Person> findById(String name) {
         Optional<Person> person = Optional.ofNullable(SimulatedDatabase.getPerson(name));
-
-        if (person.isPresent()) {
-            LOG.info("Found person: {}", person.get());
-        } else {
-            LOG.warn("No person with name {} was found", name);
-        }
+        Consumer<Person> personFound = x -> LOG.info("Found person: {}", person.get());
+        
+        person.ifPresentOrElse(personFound, () -> LOG.warn("No person with name {} was found",name));
 
         return person;
     }
